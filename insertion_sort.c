@@ -1,49 +1,53 @@
 #include <stdio.h>
 
-int main(void) {
-
-  int qntValores;
-  printf("Quantidade de Valores: ");
-  scanf("%d", &qntValores);
-
-  int valores[qntValores];
- 
-
-  for(int i=0;i<qntValores;i++){
-    scanf("%d", &valores[i]);
-  }
-
-  insertionSort(qntValores, valores);
-
-  printf("\n[ ");
+void insertionSort(int *array, int tamanhoArray)
+{
+  int i, j, aux;
   
-  for(int i=0; i<qntValores; i++) 
+  for(i = 1; i < tamanhoArray; i++)
   {
-    printf("%d ", valores[i]);
-  }
-  printf("]");
-  printf("\n");
 
+    aux = array[i];
+    
+    for(j = i; (j > 0)&&(aux < array[j-1]); j--)
+    {
+
+      array[j] = array[j-1];
+
+    }
+    array[j] = aux;
+
+  }
   
 }
 
-void insertionSort(int tamanhoVetor, int vetorDesordenado[])
+void display(int *array, int qtdValores) 
 {
-   int i, j, valorAtual;
- 
-   for( j=1; j < tamanhoVetor; j++ ) 
-   {
-      valorAtual = vetorDesordenado[j];
-      i = j-1;
-      
-      while(i >= 0 && vetorDesordenado[i] > valorAtual)
-      {
-        vetorDesordenado[i+1] = vetorDesordenado[i];
-        i--;
-      } 
-              
-      vetorDesordenado[i+1] = valorAtual;
-   }
+    printf("\nValores Ordenados:\n[ ");
+    
+    for(int i = 0; i < qtdValores; i++) 
+    {
+        printf("%d ", array[i]);
+    }
+    printf("]");
+    printf("\n");
+} 
 
-  
+int main()
+{
+    int qtdValores;
+    printf("Quantidade de Valores: ");
+    scanf("%d", &qtdValores);
+
+    int array[qtdValores];
+
+    printf("Digite os valores separados por espaço: ");
+    for(int i=0;i<qtdValores;i++){
+        scanf("%d", &array[i]);
+    }
+
+    insertionSort(array, qtdValores);
+    display(array, qtdValores);
+
+    return 0;
 }
